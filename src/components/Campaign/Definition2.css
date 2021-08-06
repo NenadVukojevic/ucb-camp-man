@@ -1,0 +1,175 @@
+.details_preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: normal;
+    align-items: normal;
+    align-content: normal;
+}
+
+.details_responses {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+
+.details_background {
+    display: block;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+    padding: 15px;
+}
+
+.holder {
+    border-radius: 5px;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+    background: rgba(200, 200, 200, 0.3);
+   
+}
+
+
+.tab-pane {
+
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    padding: 15px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+
+.holder_button {
+    border-radius: 5px;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    border-bottom: 2px solid #555555;
+    border-left: 3px solid #dddddd;
+    border-top: 3px solid #dddddd;
+    border-right: 2px solid #222222;
+    background: rgba(200, 200, 200);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block;
+}
+
+.atm_button_group {
+    overflow: scroll;
+    height: 400px;
+    width: 150px;
+    padding: 15px;
+}
+
+.atm_button {
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+    border-bottom: 2px solid #555555;
+    border-left: 3px solid #dddddd;
+    border-top: 3px solid #dddddd;
+    border-right: 2px solid #222222;
+    background: rgba(200, 200, 200);
+    margin-bottom: 5px;
+}
+
+.atm_button_text{    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+    top: 2px;
+    right: 20px;
+}
+
+.atm_button_id{
+    color: white;
+    position: relative;
+    top: 20px;
+    left: 60px;
+}
+
+.atm_screen2 {
+    position: relative;
+    font-family: Arial;
+    width: 640px;
+    height: 800px;
+    margin: 30px;
+}
+
+.atm_background2 {
+    width: 640px;
+    height: 800px;
+}
+
+.check_img{
+    visibility: hidden;
+}
+
+.camp_message {
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    color: white;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.f42 {
+    bottom: 20px;
+    right: 495px;
+}
+
+.f32 {
+    bottom: 20px;
+    right: 345px;
+}
+
+.f22 {
+    bottom: 20px;
+    right: 195px;
+}
+
+.f12 {
+    bottom: 20px;
+    right: 45px;
+}
+
+.f82 {
+    bottom: 90px;
+    right: 495px;
+}
+
+.f72 {
+    bottom: 90px;
+    right: 345px;
+}
+
+.f62 {
+    bottom: 90px;
+    right: 195px;
+}
+
+.f52 {
+    bottom: 90px;
+    right: 45px;
+}

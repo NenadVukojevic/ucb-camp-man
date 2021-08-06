@@ -45,6 +45,11 @@ class HeaderComponent extends Component {
               to={'/terminalGroups'}
               name="Grupe Terminala"
             />
+            <Menu.Item
+              as={Link}
+              to={'/logout'}
+              name="Logout"
+            />
           </Menu>
         </div>
         <div>
