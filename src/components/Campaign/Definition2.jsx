@@ -6,7 +6,7 @@ import './Definition2.css';
 import AvailableButtons from './AvailableButtons';
 import CRMCampaignsService from '../../services/CRMCampaignsService';
 const Definition2 = (props) => {
-    const { definition, thCampaign, setTHCampaign, setDefinition, onSave, onReset } = props;
+    const { definition, thCampaign, setTHCampaign, setDefinition, onSave, onReset, idType } = props;
     const [newImgFile, setNewImgFile] = useState(false);
     const [campaignImgUrl, setImageUrl] = useState('');
     const [file, setFile] = useState('');
@@ -73,14 +73,20 @@ const Definition2 = (props) => {
         ev.target.style.background = 'rgba(200, 200, 200, 0.3)';
         console.log(definition[ev.target.id]);
         removeUsed(definition[ev.target.id]);
-        setDefinition({ ...definition, [ev.target.id]: '' });
+        if(idType==="number"){
+            setDefinition({ ...definition, [ev.target.id]: 0 });
+        }
+        else
+        {
+            setDefinition({ ...definition, [ev.target.id]: '' });
+        }
     }
 
     function drop(ev) {
         ev.preventDefault();
         ev.target.style.background = 'rgba(200, 200, 200)';
         console.log('drop', ev.target);
-        var data = ev.dataTransfer.getData("text");
+        var data = idType==="number"? parseInt(ev.dataTransfer.getData("text")) : ev.dataTransfer.getData("text");
         setDefinition({ ...definition, [ev.target.id]: data });
         addUsed(data);
     }
@@ -125,7 +131,7 @@ const Definition2 = (props) => {
         let response = props.responses.filter(r => { return r.responseId === id });
         let label = '';
         console.log(id);
-        if (response !== null) {
+        if (response.length !== 0) {
             label = response[0].responseName;
         }
         return label;
@@ -147,6 +153,9 @@ const Definition2 = (props) => {
 
     return (
         <div>
+            <div>
+                <h4>Screen definition for 1024x1280</h4>
+            </div>
             <div className="details_preview">
                 <div className="details_responses">
                     <AvailableButtons
@@ -158,7 +167,7 @@ const Definition2 = (props) => {
                     <div className="mb-3 row">
                         <label className="col-sm-2 col-form-label">Background Url:</label>
                         <div className="col-sm-10">
-                            <input type="file" accept="image/*" className="form-control-plaintext" onChange={loadFile}  />
+                            <input type="file" accept="image/*" className="form-control-plaintext" onChange={loadFile} />
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -187,20 +196,20 @@ const Definition2 = (props) => {
                                 buttons.map((button) => {
                                     return (definition[button] === '' || definition[button] === null) ?
                                         <div key={button}
-                                            style={{background:'rgba(200, 200, 200, 0.3)'}}
+                                            style={{ background: 'rgba(200, 200, 200, 0.3)' }}
                                             className={`holder ${button}2`}
                                             id={button}
                                             onDrop={drop}
                                             onDragOver={allowDrop}
-                                            onDragLeave={restoreStyle}                                            
+                                            onDragLeave={restoreStyle}
                                         ></div>
                                         :
 
-                                        <div key={button} 
-                                             style={{background:'rgba(200, 200, 200)'}}
-                                             className={`holder_button ${button}2`} 
-                                             id={button} 
-                                             onDoubleClick={removeButton}>
+                                        <div key={button}
+                                            style={{ background: 'rgba(200, 200, 200)' }}
+                                            className={`holder_button ${button}2`}
+                                            id={button}
+                                            onDoubleClick={removeButton}>
                                             {getLabel(definition[button])}
                                         </div>
                                 }

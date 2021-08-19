@@ -6,7 +6,7 @@ import './Definition1.css';
 import AvailableButtons from './AvailableButtons';
 import CRMCampaignsService from '../../services/CRMCampaignsService';
 const Definition1 = (props) => {
-    const { definition, thCampaign, setTHCampaign, setDefinition, onSave, onReset } = props;
+    const { definition, thCampaign, setTHCampaign, setDefinition, onSave, onReset, idType } = props;
     const [newImgFile, setNewImgFile] = useState(false);
     const [campaignImgUrl, setImageUrl] = useState('');
     const [file, setFile] = useState('');
@@ -42,7 +42,7 @@ const Definition1 = (props) => {
     const removeUsed = (value) => {
         let nUsed = new Set();
         for (let val of used) {
-            console.log(val + ' ' + value)
+            console.log('removeUsed', val + ' ' + value)
             if (val !== value) {
                 nUsed.add(val);
             }
@@ -71,16 +71,23 @@ const Definition1 = (props) => {
     function removeButton(ev) {
         ev.preventDefault();
         ev.target.style.background = 'rgba(200, 200, 200, 0.3)';
-        console.log(definition[ev.target.id]);
+        console.log("removeButton", definition[ev.target.id]);
         removeUsed(definition[ev.target.id]);
-        setDefinition({ ...definition, [ev.target.id]: '' });
+        if(idType==="number"){
+            setDefinition({ ...definition, [ev.target.id]: 0 });
+        }
+        else
+        {
+            setDefinition({ ...definition, [ev.target.id]: '' });
+        }
     }
 
     function drop(ev) {
         ev.preventDefault();
         ev.target.style.background = 'rgba(200, 200, 200)';
         console.log('drop', ev.target);
-        var data = ev.dataTransfer.getData("text");
+        var data = idType==="number"? parseInt(ev.dataTransfer.getData("text")) : ev.dataTransfer.getData("text");
+
         setDefinition({ ...definition, [ev.target.id]: data });
         addUsed(data);
     }
@@ -121,20 +128,21 @@ const Definition1 = (props) => {
     }
 
     function getLabel(id) {
-        if (id === null) {
+        if (id === null || id === 0) {
             return '';
         }
         let response = props.responses.filter(r => { return r.responseId === id });
         let label = '';
-        console.log(id);
-        if (response !== null) {
+        console.log(id, response);
+        if (response.length !== 0) {
+            console.log(response);
             label = response[0].responseName;
         }
         return label;
     }
 
     function getResponse(id) {
-        if (id === null) {
+        if (id === null || id === 0) {
             return '';
         }
         let response = props.responses.filter(r => { return r.responseId === id });
@@ -150,7 +158,7 @@ const Definition1 = (props) => {
     return (
         <div>
             <div>
-                <h1>Definition 1</h1>
+                <h4>Screen definition for 800x600</h4>
             </div>
             <div className="details_preview">
                 <div className="details_responses">
@@ -190,7 +198,7 @@ const Definition1 = (props) => {
                             </div>
                             {
                                 buttons.map((button) => {
-                                    return (definition[button] === '' || definition[button] === null) ?
+                                    return (definition[button] === '' || definition[button] === null || definition[button] === 0) ?
                                         <div key={button}
                                             style={{background:'rgba(200, 200, 200, 0.3)'}}
                                             className={`holder ${button}`}

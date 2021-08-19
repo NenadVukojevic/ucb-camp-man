@@ -9,7 +9,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import './Layout.css';
 import Login from '../Login/Login';
 import Logout from '../Login/Logout';
-
+import ListResponses from '../CampaignOffUs/Responses/ListResponses';
+import EditResponse from '../CampaignOffUs/Responses/EditResponse';
+import EditOffCampaign from '../CampaignOffUs/EditOffCampaign';
+import ListOffCampaigns from '../CampaignOffUs/ListOffCampaigns';
+import Header from '../Header/Header';
 
 
 
@@ -28,7 +32,7 @@ class Layout extends Component {
         else {
 
             return (<div className="appContent">
-                <HeaderComponent />
+                <Header />
 
                 <div className="container">
                     <Switch>
@@ -36,7 +40,12 @@ class Layout extends Component {
                         <Route path="/logout" component={Logout}></Route>
                         <Route path="/campaigns" component={CRMCampaigns}></Route>
                         <Route path="/campaigns-edit/:id" component={EditCampaign}></Route>
-                        <Route path="/campaignsOff" component={EditCampaign} />
+                        <Route path="/campaignsOff/" component={ListOffCampaigns} />
+                        <Route path="/edit-campaignsOff/" exact component={EditOffCampaign} />
+                        <Route path="/edit-campaignsOff/:id" component={EditOffCampaign} />
+                        <Route path="/responses" component={ListResponses} />
+                        <Route path="/edit-response/" exact component={EditResponse} />
+                        <Route path="/edit-response/:id" component={EditResponse} />
                         <Route path="/head" component={TableContent}></Route>
 
                     </Switch>

@@ -1,3 +1,7 @@
+.navbar-custom{
+  height: 90px;
+}
+
 .headerHolder {
   display: flex;
   align-items: center;

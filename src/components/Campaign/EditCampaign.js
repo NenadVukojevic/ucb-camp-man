@@ -99,7 +99,7 @@ function EditCampaign({ history, match }) {
             , definitions: defs
         }
         console.log(campaignForSave);
-        CRMCampaignsService.saveCampaign(campaignForSave, crmCampaign.campaignId).then(
+        CRMCampaignsService.saveCampaign(campaignForSave, thCampaign.externalId).then(
             (res) => {
                 console.log(res);
                 toast.info('Kampanja ' + crmCampaign.campaignName + ' je uspešno snimljena!', { position: toast.POSITION.TOP_RIGHT });
@@ -143,6 +143,7 @@ function EditCampaign({ history, match }) {
                         setDefinition={setDefinition1}
                         onSave={saveCampaign}
                         onReset={resetForm}
+                        idType="text"
                     />
                 </div>
                 <div className={showTab === 3 ? "tab-pane fade show active" : "tab-pane fade"}>
@@ -154,6 +155,7 @@ function EditCampaign({ history, match }) {
                         setDefinition={setDefinition2}
                         onSave={saveCampaign}
                         onReset={resetForm}
+                        idType="text"
                     />
                 </div>
             </div>

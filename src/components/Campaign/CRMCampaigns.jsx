@@ -26,21 +26,21 @@ const columns = [
     { "name": "endDate", "label": "Datum Kraja" },
     { "name": "active", "label": "Aktivna" },
 
-    
+
 ]
 
 const CRMCampaigns = (props) => {
-    
+
     const [orderDirection, setOrderDirection] = useState('asc')
     const [valueToOrderBy, setValueToOrderBy] = useState('name')
-    
+
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(5)
-    
+
     const [campaigns, setCampaigns] = useState([]);
     const [rowInformation, setRowInformation] = useState([]);
 
-    const [showStatus, setShowStatus ] = useState("Active");
+    const [showStatus, setShowStatus] = useState("Active");
 
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {
@@ -82,24 +82,24 @@ const CRMCampaigns = (props) => {
             console.log(res.data);
             setRowInformation(res.data.filter(campaign => campaign.active === true));
         });
-     }, []);
+    }, []);
 
-    const filterByStatus = (event) =>{
+    const filterByStatus = (event) => {
         setShowStatus(event.target.value);
-        
+
         if (event.target.value === 'Active') {
             setRowInformation(campaigns.filter(campaign => campaign.active === true));
         }
-        else if (event.target.value === 'Inactive'){
+        else if (event.target.value === 'Inactive') {
             setRowInformation(campaigns.filter(campaign => campaign.active === false));
         }
-        else{
+        else {
             setRowInformation(campaigns);
         }
         setPage(0);
     }
 
-    function handleClick (id) {
+    function handleClick(id) {
         props.history.push(`/campaigns-edit/${id}`);
     }
 
@@ -107,73 +107,77 @@ const CRMCampaigns = (props) => {
         <div>
 
             <div>
-                <ControlTitle title="On US Campaigns"/>
+                <ControlTitle title="On US Campaigns" />
             </div>
-            <div>
-                <select onChange={filterByStatus} value={showStatus}>
-                    <option value="Active">Aktivne</option>
-                    <option value="Inactive">Neaktivne</option>
-                    <option value="All">Sve</option>
-                </select>
+            <div className="mb-3 row">
+                <div className="col-md-3">
+                    <select className="form-control"
+                        onChange={filterByStatus}
+                        value={showStatus}>
+                        <option value="Active">Aktivne</option>
+                        <option value="Inactive">Neaktivne</option>
+                        <option value="All">Sve</option>
+                    </select>
+                </div>
             </div>
             <React.Fragment>
-            <TableContainer>
-                <Table>
-                    <TableHeader
-                        valueToOrderBy={valueToOrderBy}
-                        orderDirection={orderDirection}
-                        handleRequestSort={handleRequestSort}
-                        columns={columns}
+                <TableContainer>
+                    <Table>
+                        <TableHeader
+                            valueToOrderBy={valueToOrderBy}
+                            orderDirection={orderDirection}
+                            handleRequestSort={handleRequestSort}
+                            columns={columns}
+                        />
+                        <TableBody>
+                            {
+                                sortedRowInformation(rowInformation, getComparator(orderDirection, valueToOrderBy))
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row, index) => (
+                                        <TableRow key={index}
+                                            style={index % 2 ? { background: "#f5f5f5" } : { background: "white" }}
+                                            onClick={() => handleClick(row.campaignId)} >
+                                            <TableCell>
+                                                {row.campaignId}
+                                            </TableCell>
+                                            <TableCell>
+                                                {row.campaignName}
+                                            </TableCell>
+                                            <TableCell>
+                                                {row.campaignDesc}
+                                            </TableCell>
+                                            <TableCell>
+                                                {row.startDate}
+                                            </TableCell>
+                                            <TableCell>
+                                                {row.endDate}
+                                            </TableCell>
+                                            <TableCell>
+                                                <img src={row.active === true ? Active : Inactive} alt="status"></img>
+                                            </TableCell>
+                                        </TableRow>
+
+                                    )
+                                    )
+                            }
+                        </TableBody>
+
+                    </Table>
+
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10]}
+                        component="div"
+                        count={rowInformation.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
                     />
-                    <TableBody>
-                        {
-                            sortedRowInformation(rowInformation, getComparator(orderDirection, valueToOrderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => (
-                                    <TableRow key={index} 
-                                    style={index%2 ? { background : "#f5f5f5" }:{ background : "white" }} 
-                                    onClick={()=>handleClick(row.campaignId)} >
-                                        <TableCell>
-                                            {row.campaignId}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.campaignName}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.campaignDesc}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.startDate}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.endDate}
-                                        </TableCell>
-                                        <TableCell>
-                                            <img src={row.active===true? Active: Inactive} alt="status"></img>
-                                        </TableCell>
-                                    </TableRow>
-
-                                )
-                                )
-                        }
-                    </TableBody>
-
-                </Table>
-
-                <TablePagination
-                    rowsPerPageOptions={[5, 10]}
-                    component="div"
-                    count={rowInformation.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-            </TableContainer>
+                </TableContainer>
 
 
 
-        </React.Fragment>
+            </React.Fragment>
 
         </div>
     );
