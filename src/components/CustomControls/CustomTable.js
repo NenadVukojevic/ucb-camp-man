@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Table, TableBody, TableRow, TableCell, TableSortLabel, TablePagination, TableContainer, Paper } from '@material-ui/core'
+import { Table, TableBody, TableRow, TableCell, TableSortLabel, TablePagination, TableContainer, Paper, Switch } from '@material-ui/core'
 import {TableHeader } from 'semantic-ui-react';
 import { makeStyles } from '@material-ui/core/styles'
-import "./CustomTable.css"
+import "./CustomControls.css"
 import Active from '../../images/0.png'
 import Inactive from '../../images/2.png'
+
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -31,7 +32,7 @@ function CustomTable(props) {
 
     const classes = useStyles();
 
-    const { headers, data, edit } = props;
+    const { headers, data, edit, switchFunction } = props;
 
     const [orderDirection, setOrderDirection] = useState('asc')
     const [valueToOrderBy, setValueToOrderBy] = useState('name')
@@ -92,8 +93,9 @@ function CustomTable(props) {
         {
             case "text": return row[col.id];
             case "bool": return row[col.id]=== true? "Y":"N";
-            case "edit": return <button type="button" className="btn btn-secondary btn-sm" onClick={()=>edit(row[col.id])}>edit</button>
-            case "light": return <img src={row[col.id]===1? Active: Inactive} alt="status"></img>
+            case "edit": return <button type="button" className="btn btn-secondary btn-sm" onClick={()=>edit(row[col.id])}>edit</button>;
+            case "light": return <img src={row[col.id]===1? Active: Inactive} alt="status"></img>;
+            case "switch": return <Switch checked={row[col.id]} onChange={()=>switchFunction(row[col.param])}></Switch>;
             //case "action": return <div onClick={()=>action(row[col.id])}>{row["ID"]}</div>
             default: return null
         }
@@ -131,6 +133,7 @@ function CustomTable(props) {
                     page={page}
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
+
                 />
             </TableContainer>
         </React.Fragment>

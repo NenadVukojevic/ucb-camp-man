@@ -16,9 +16,9 @@ function Header() {
                         <NavDropdown title="OFF US Campaigns" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/campaignsOff">Campaigns</NavDropdown.Item>
                             <NavDropdown.Item href="/responses">Responses</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            <NavDropdown.Item href="/terminalGroup">Terminal Group</NavDropdown.Item>
+                            <NavDropdown.Item href="/binRangeGroup">BinRange Group</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="/terminals">Terminals</Nav.Link>
                     </Nav>

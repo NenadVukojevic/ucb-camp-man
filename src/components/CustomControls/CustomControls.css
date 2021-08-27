@@ -1,0 +1,17 @@
+.odd{
+    background-color:white;
+}
+
+.even{
+    background-color:rgb(240, 240, 240);
+}
+
+.option-tag{
+    border-radius: 5px;
+    width: 100px;
+    height: 18px;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+    background: rgba(200, 200, 200);
+}

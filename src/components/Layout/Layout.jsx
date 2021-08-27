@@ -14,6 +14,10 @@ import EditResponse from '../CampaignOffUs/Responses/EditResponse';
 import EditOffCampaign from '../CampaignOffUs/EditOffCampaign';
 import ListOffCampaigns from '../CampaignOffUs/ListOffCampaigns';
 import Header from '../Header/Header';
+import GroupOfTerminals from '../Terminals/GroupOfTerminals';
+import EditGroupOfTerminal from '../Terminals/EditGroupOfTerminal';
+import GroupOfBinRanges from '../BinRanges/GroupOfBinRanges';
+import EditBinRangeGroup from '../BinRanges/EditBinRangeGroup';
 
 
 
@@ -22,7 +26,7 @@ import Header from '../Header/Header';
 
 class Layout extends Component {
     render() {
-        const isLoggedIn = Boolean(localStorage.getItem("loggedIn")==='true');
+        const isLoggedIn = Boolean(localStorage.getItem("loggedIn") === 'true');
         console.log("layout", isLoggedIn);
 
         if (isLoggedIn === false) {
@@ -38,14 +42,28 @@ class Layout extends Component {
                     <Switch>
                         <Route path="/" exact component={CRMCampaigns}></Route>
                         <Route path="/logout" component={Logout}></Route>
+
                         <Route path="/campaigns" component={CRMCampaigns}></Route>
                         <Route path="/campaigns-edit/:id" component={EditCampaign}></Route>
+
                         <Route path="/campaignsOff/" component={ListOffCampaigns} />
                         <Route path="/edit-campaignsOff/" exact component={EditOffCampaign} />
                         <Route path="/edit-campaignsOff/:id" component={EditOffCampaign} />
+
                         <Route path="/responses" component={ListResponses} />
                         <Route path="/edit-response/" exact component={EditResponse} />
                         <Route path="/edit-response/:id" component={EditResponse} />
+
+                        <Route path="/terminalGroup" component={GroupOfTerminals} />
+                        <Route path="/edit-terminalGroup/" exact component={EditGroupOfTerminal} />
+                        <Route path="/edit-terminalGroup/:id" component={EditGroupOfTerminal} />
+
+                        <Route path="/binRangeGroup" component={GroupOfBinRanges} />
+                        <Route path="/edit-binRangeGroup/" exact component={EditBinRangeGroup} />
+                        <Route path="/edit-binRangeGroup/:id" component={EditBinRangeGroup} />
+
+
+
                         <Route path="/head" component={TableContent}></Route>
 
                     </Switch>
