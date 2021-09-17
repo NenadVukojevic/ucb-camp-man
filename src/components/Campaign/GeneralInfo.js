@@ -78,7 +78,7 @@ function GeneralInfo(props) {
             </div>
             <div className="mb-3 row">
                 <label className="col-md-3 col-form-label">Contact Collecting:</label>
-                <div className="col-md-9">
+                <div className="col-md-4">
 
                     <div><select className="form-control"
                         placeholder="Izaberite opciju"
@@ -94,8 +94,12 @@ function GeneralInfo(props) {
             </div>
             <div className="mb-3 row">
                 <label className="col-md-3 col-form-label">Status:</label>
-                <div className="col-md-9">
-                    <div>{thCampaign.campaignStatus}</div>
+                <div className="col-md-4">
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={thCampaign.campaignStatus}
+                        disabled />
                 </div>
             </div>
         </div>

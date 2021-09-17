@@ -17,6 +17,7 @@ function EditCampaign({ history, match }) {
         campaignEnd: '',
         campaignText: '',
         contactCollecting: false,
+        campaignStatus: '',
         externalId:''
      /*   f1: '',
         f2: '',
@@ -81,6 +82,8 @@ function EditCampaign({ history, match }) {
             setResponses(res.data);
         })
     };
+
+
     useEffect(() => {
         getCampaignByID(match.params.id);
     }, [match.params.id]);
@@ -102,6 +105,7 @@ function EditCampaign({ history, match }) {
         CRMCampaignsService.saveCampaign(campaignForSave, thCampaign.externalId).then(
             (res) => {
                 console.log(res);
+                getCampaignByID(thCampaign.externalId);
                 toast.info('Kampanja ' + crmCampaign.campaignName + ' je uspešno snimljena!', { position: toast.POSITION.TOP_RIGHT });
 
             }

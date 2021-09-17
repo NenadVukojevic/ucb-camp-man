@@ -12,6 +12,14 @@ class TerminalsService {
             }
         });
     }
+
+    getTerminal(id){
+        return axios.get(CAMPAIGNS_API_BASE_URL + 'terminal/' + id, {
+            headers: {
+                Authorization: localStorage.getItem('jwt')
+            }
+        });
+    }
   
     getTerminalGroups(){
         return axios.get(CAMPAIGNS_API_BASE_URL + 'terminalGroup', {
@@ -39,6 +47,24 @@ class TerminalsService {
 
     updateTerminalGroup(group){
         return axios.put(CAMPAIGNS_API_BASE_URL + 'terminalGroup/' , group, {
+            headers: {
+                Authorization: localStorage.getItem('jwt')
+            }
+        });
+    }
+
+    getCities()
+    {
+        return axios.get(CAMPAIGNS_API_BASE_URL + 'terminals/cities', {
+            headers: {
+                Authorization: localStorage.getItem('jwt')
+            }
+        });
+    }
+
+    addTerminal(terminal)
+    {
+        return axios.post(CAMPAIGNS_API_BASE_URL + 'terminal/' , terminal, {
             headers: {
                 Authorization: localStorage.getItem('jwt')
             }

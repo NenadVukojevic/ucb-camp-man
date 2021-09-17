@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import logo from '../../images/logo.png'
 import './Header.css'
 
@@ -19,6 +19,11 @@ function Header() {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/terminalGroup">Terminal Group</NavDropdown.Item>
                             <NavDropdown.Item href="/binRangeGroup">BinRange Group</NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown title="User Management" id="basic-nav-dropdown1">
+                            <NavDropdown.Item href="/groups">Groups</NavDropdown.Item>
+                            <NavDropdown.Item href="/roles">Roles</NavDropdown.Item>
+                            <NavDropdown.Item href="/users">Users</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="/terminals">Terminals</Nav.Link>
                     </Nav>

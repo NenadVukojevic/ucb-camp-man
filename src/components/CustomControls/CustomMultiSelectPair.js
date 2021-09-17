@@ -71,7 +71,7 @@ function CustomMultiSelectPair(props) {
 
     return (
         <>
-            <div className="col-md-5">
+            <div className="col-md-4">
                 <ControlTitle
                     title="Available"
                 />
@@ -103,7 +103,7 @@ function CustomMultiSelectPair(props) {
                     </div>
                 </div>
             </div>
-            <div className="col-md-5">
+            <div className="col-md-4">
                 <ControlTitle
                     title="Selected"
                 />

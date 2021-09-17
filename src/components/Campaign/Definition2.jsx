@@ -30,7 +30,6 @@ const Definition2 = (props) => {
         addUsed(definition.f7);
         addUsed(definition.f8);
 
-        console.log('used size:', used.size, definition);
     }, [definition]);
 
     const addUsed = (value) => {
@@ -42,7 +41,6 @@ const Definition2 = (props) => {
     const removeUsed = (value) => {
         let nUsed = new Set();
         for (let val of used) {
-            console.log(val + ' ' + value)
             if (val !== value) {
                 nUsed.add(val);
             }
@@ -71,7 +69,6 @@ const Definition2 = (props) => {
     function removeButton(ev) {
         ev.preventDefault();
         ev.target.style.background = 'rgba(200, 200, 200, 0.3)';
-        console.log(definition[ev.target.id]);
         removeUsed(definition[ev.target.id]);
         if(idType==="number"){
             setDefinition({ ...definition, [ev.target.id]: 0 });
@@ -85,7 +82,6 @@ const Definition2 = (props) => {
     function drop(ev) {
         ev.preventDefault();
         ev.target.style.background = 'rgba(200, 200, 200)';
-        console.log('drop', ev.target);
         var data = idType==="number"? parseInt(ev.dataTransfer.getData("text")) : ev.dataTransfer.getData("text");
         setDefinition({ ...definition, [ev.target.id]: data });
         addUsed(data);
@@ -93,7 +89,6 @@ const Definition2 = (props) => {
 
 
     function loadFile(event) {
-        console.log('load File:', event.target.files.length, 'something')
         if (event.target.files === null || event.target.files.length === 0) {
             return;
         }
@@ -104,7 +99,6 @@ const Definition2 = (props) => {
     }
 
     function checkFile({ target: img }) {
-        console.log('checkFIle called', img);
         if (newImgFile && img.offsetHeight > 0 && img.offsetWidth > 0) {
             if (img.naturalHeight !== 1280 || img.naturalWidth !== 1024) {
                 setImageUrl('');
@@ -113,9 +107,7 @@ const Definition2 = (props) => {
                 setDefinition({ ...definition, imageId: 0 });
             }
             else {
-                console.log('valid img file!')
                 CRMCampaignsService.uploadFile(file).then((res) => {
-                    console.log('imgage id:', res.data.imageId);
                     setDefinition({ ...definition, imageId: res.data.imageId });
 
                     setNewImgFile(false);
@@ -130,25 +122,10 @@ const Definition2 = (props) => {
         }
         let response = props.responses.filter(r => { return r.responseId === id });
         let label = '';
-        console.log(id);
         if (response.length !== 0) {
             label = response[0].responseName;
         }
         return label;
-    }
-
-    function getResponse(id) {
-        if (id === null) {
-            return '';
-        }
-        let response = props.responses.filter(r => { return r.responseId === id });
-        return response;
-    }
-
-
-    const saveCampaign = (event) => {
-        event.preventDefault();
-        onSave();
     }
 
     return (
@@ -194,7 +171,7 @@ const Definition2 = (props) => {
                             </div>
                             {
                                 buttons.map((button) => {
-                                    return (definition[button] === '' || definition[button] === null) ?
+                                    return (definition[button] === '' || definition[button] === null || definition[button] === 0) ?
                                         <div key={button}
                                             style={{ background: 'rgba(200, 200, 200, 0.3)' }}
                                             className={`holder ${button}2`}
@@ -218,13 +195,6 @@ const Definition2 = (props) => {
                         </div>
 
                     </div>
-                    {/* <div>
-                        <div className="btn-toolbar float-right">
-                            <button type="button" className="btn btn-secondary mr-2" onClick={saveCampaign}>Save</button>
-                            <button type="button" className="btn btn-secondary" onClick={onReset}>Reset</button>
-                        </div>
-
-                    </div> */}
                 </div>
             </div>
         </div>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Table, TableBody, TableRow, TableCell, TableSortLabel, TablePagination, TableContainer, Paper, Switch } from '@material-ui/core'
-import {TableHeader } from 'semantic-ui-react';
+import { Table, TableBody, TableRow, TableCell, TableSortLabel, TablePagination, TableContainer, Paper} from '@material-ui/core'
+import { TableHeader } from 'semantic-ui-react';
 import { makeStyles } from '@material-ui/core/styles'
 import "./CustomControls.css"
 import Active from '../../images/0.png'
 import Inactive from '../../images/2.png'
-
+import AntSwitch from './AntSwitch';
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
         fontWeight: 500,
     }
 }))
-
 
 const sortedRowInformation = (rowArray, comparator) => {
     const stabilizedRowArray = rowArray.map((el, index) => [el, index])
@@ -32,7 +31,7 @@ function CustomTable(props) {
 
     const classes = useStyles();
 
-    const { headers, data, edit, switchFunction } = props;
+    const { headers, data, edit, onDelete, switchFunction } = props;
 
     const [orderDirection, setOrderDirection] = useState('asc')
     const [valueToOrderBy, setValueToOrderBy] = useState('name')
@@ -88,15 +87,21 @@ function CustomTable(props) {
         </TableSortLabel>
     </TableCell>)
 
-    const mapCell = (row, col) =>{
-        switch(col.type)
-        {
+    const mapCell = (row, col) => {
+        switch (col.type) {
             case "text": return row[col.id];
-            case "bool": return row[col.id]=== true? "Y":"N";
-            case "edit": return <button type="button" className="btn btn-secondary btn-sm" onClick={()=>edit(row[col.id])}>edit</button>;
-            case "light": return <img src={row[col.id]===1? Active: Inactive} alt="status"></img>;
-            case "switch": return <Switch checked={row[col.id]} onChange={()=>switchFunction(row[col.param])}></Switch>;
-            //case "action": return <div onClick={()=>action(row[col.id])}>{row["ID"]}</div>
+            case "bool": return row[col.id] === true ? "Y" : "N";
+            case "edit": return <button type="button" className="btn btn-secondary btn-sm" onClick={() => edit(row[col.id])}>edit</button>;
+            case "edit_delete": return <>
+                <button type="button" className="btn btn-secondary btn-sm" onClick={() => edit(row[col.id])}>edit</button>
+                &nbsp;
+                <button type="button" className="btn btn-secondary btn-sm" onClick={() => onDelete(row[col.id])}>delete</button>
+            </>;
+            case "light": return <img src={row[col.id] === 1 ? Active : Inactive} alt="status"></img>;
+            case "switch": return <AntSwitch checked={row[col.id]}
+                onChange={() => switchFunction(row[col.param])}
+            ></AntSwitch>;
+
             default: return null
         }
     }
@@ -104,7 +109,7 @@ function CustomTable(props) {
     const mapRow = (row) => {
         const result = headers.map((col, index) => <TableCell key={index}>{
             mapCell(row, col)
-            }</TableCell>)
+        }</TableCell>)
         return result;
     }
 

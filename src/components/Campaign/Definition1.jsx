@@ -30,7 +30,7 @@ const Definition1 = (props) => {
         addUsed(definition.f7);
         addUsed(definition.f8);
 
-        console.log('used size:', used.size, definition);
+
     }, [definition]);
 
     const addUsed = (value) => {
@@ -42,7 +42,7 @@ const Definition1 = (props) => {
     const removeUsed = (value) => {
         let nUsed = new Set();
         for (let val of used) {
-            console.log('removeUsed', val + ' ' + value)
+
             if (val !== value) {
                 nUsed.add(val);
             }
@@ -85,7 +85,6 @@ const Definition1 = (props) => {
     function drop(ev) {
         ev.preventDefault();
         ev.target.style.background = 'rgba(200, 200, 200)';
-        console.log('drop', ev.target);
         var data = idType==="number"? parseInt(ev.dataTransfer.getData("text")) : ev.dataTransfer.getData("text");
 
         setDefinition({ ...definition, [ev.target.id]: data });
@@ -94,7 +93,7 @@ const Definition1 = (props) => {
 
 
     function loadFile(event) {
-        console.log('load File:', event.target.files.length, 'something')
+
         if (event.target.files === null || event.target.files.length === 0) {
             return;
         }
@@ -105,9 +104,6 @@ const Definition1 = (props) => {
     }
 
     function checkFile({ target: img }) {
-        console.log('checkFIle called', img);
-        console.log('natural', img.naturalHeight, img.naturalWidth);
-        console.log('offset', img.offsetHeight, img.offsetWidth);
         if (newImgFile && img.offsetHeight > 0 && img.offsetWidth > 0) {
             if (img.offsetHeight !== 600 || img.offsetWidth !== 800) {
                 setImageUrl('');
@@ -116,9 +112,9 @@ const Definition1 = (props) => {
                 setDefinition({ ...definition, imageId: 0 });
             }
             else {
-                console.log('valid img file!')
+
                 CRMCampaignsService.uploadFile(file).then((res) => {
-                    console.log('imgage id:', res.data.imageId);
+
                     setDefinition({ ...definition, imageId: res.data.imageId });
 
                     setNewImgFile(false);
@@ -133,9 +129,9 @@ const Definition1 = (props) => {
         }
         let response = props.responses.filter(r => { return r.responseId === id });
         let label = '';
-        console.log(id, response);
+
         if (response.length !== 0) {
-            console.log(response);
+
             label = response[0].responseName;
         }
         return label;
